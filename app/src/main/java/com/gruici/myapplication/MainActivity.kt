@@ -4,29 +4,63 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.gruici.myapplication.ui.theme.MyApplicationTheme
 import com.gruici.myapplication.viewmodel.ItemViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.gruici.myapplication.api.data.ItemData
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
             MyApplicationTheme {
-                ItemDataText()
+                ItemList()
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun ItemList(viewModel: ItemViewModel = viewModel()) {
+    LazyColumn(
+        modifier = Modifier.padding(16.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+    ) {
+        viewModel.itemViewMap.forEach { (itemId, itemData) ->
+            stickyHeader {
+                ItemDataHeader(itemId)
+            }
+
+            items(itemData) { item ->
+                ItemDataListItem(item)
             }
         }
     }
 }
 
 @Composable
-fun ItemDataText(viewModel: ItemViewModel = viewModel()) {
+fun ItemDataHeader(itemId: Int) {
     Text(
-        text = viewModel.itemViewMap.toString()
+        text = "$itemId"
+    )
+}
+
+@Composable
+fun ItemDataListItem(item: ItemData) {
+    Text(
+        text = item.toString()
     )
 }
 
@@ -34,6 +68,6 @@ fun ItemDataText(viewModel: ItemViewModel = viewModel()) {
 @Composable
 fun AppPreview() {
     MyApplicationTheme {
-        ItemDataText()
+        ItemList()
     }
 }
