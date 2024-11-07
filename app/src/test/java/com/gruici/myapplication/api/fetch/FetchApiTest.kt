@@ -15,7 +15,7 @@ import org.junit.Test
 class FetchApiTest {
 
     @Test
-    fun isKtorWorking() {
+    fun isSerializerWorking() {
         val httpClient = HttpClient(mockEngine(exampleResponse)) {
             install(ContentNegotiation) {
                 json()
