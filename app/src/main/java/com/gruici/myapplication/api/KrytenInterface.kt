@@ -1,9 +1,10 @@
 package com.gruici.myapplication.api
 
 import com.gruici.myapplication.api.data.ItemData
+import kotlinx.coroutines.CoroutineDispatcher
 
 interface KrytenInterface {
 
-    fun getItemData() : List<ItemData>
+    suspend fun getItemData(): List<ItemData>
 
 }

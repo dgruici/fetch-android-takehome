@@ -2,6 +2,8 @@ package com.gruici.myapplication.viewmodel
 
 import com.gruici.myapplication.api.KrytenInterface
 import com.gruici.myapplication.api.data.ItemData
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
 class ItemViewModelTest {
@@ -22,7 +24,13 @@ class ItemViewModelTest {
             println(viewModel.itemViewMap[key])
         }
 
-        assert(viewModel.itemViewMap.keys == sortedSetOf(1,3,4)) // keys in sorted order, sure to be sure
+        assert(
+            viewModel.itemViewMap.keys == sortedSetOf(
+                1,
+                3,
+                4
+            )
+        ) // keys in sorted order, sure to be sure
 
         assert(viewModel.itemViewMap[1]!![0].name == "Item 276")
         assert(viewModel.itemViewMap[1]!![1].name == "Item 684")
@@ -34,7 +42,7 @@ class ItemViewModelTest {
     }
 
     class KrytenTest : KrytenInterface {
-        override fun getItemData(): List<ItemData> = listOf(
+        override suspend fun getItemData(): List<ItemData> = listOf(
             ItemData(id=755, listId=2, name=""),
             ItemData(id=203, listId=2, name=""),
             ItemData(id=684, listId=1, name="Item 684"),

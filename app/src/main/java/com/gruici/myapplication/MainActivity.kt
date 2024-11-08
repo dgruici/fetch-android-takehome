@@ -3,16 +3,17 @@ package com.gruici.myapplication
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gruici.myapplication.ui.theme.MyApplicationTheme
@@ -53,14 +54,25 @@ fun ItemList(viewModel: ItemViewModel = viewModel()) {
 @Composable
 fun ItemDataHeader(itemId: Int) {
     Text(
-        text = "$itemId"
+        text = "listId: $itemId",
+        modifier = Modifier.background(Color.White)
+            .fillMaxWidth()
     )
 }
 
+/**
+ * In the case I forget to make a decision on this, this can go two ways.
+ * One, no nulls is part of the criteria, so it makes sense to crash to show that a null got through
+ * On the other, we should always fail as gracefully as possible.
+ * We'd want to ask product design what the desired outcome is here.
+ * I'm reusing my ItemData class so it is nullable. Mapping to a non-null class would
+ * remove the double bang.
+ */
 @Composable
 fun ItemDataListItem(item: ItemData) {
     Text(
-        text = item.toString()
+        text = item.name!!,
+        modifier = Modifier.fillMaxWidth()
     )
 }
 
