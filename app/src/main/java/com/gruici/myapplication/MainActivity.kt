@@ -55,13 +55,14 @@ fun ItemList(viewModel: ItemViewModel = viewModel()) {
 fun ItemDataHeader(itemId: Int) {
     Text(
         text = "listId: $itemId",
-        modifier = Modifier.background(Color.White)
+        color = Color.White,
+        modifier = Modifier.background(Color.Black)
             .fillMaxWidth()
     )
 }
 
 /**
- * In the case I forget to make a decision on this, this can go two ways.
+ * This can go two ways. A double bang is not always desired.
  * One, no nulls is part of the criteria, so it makes sense to crash to show that a null got through
  * On the other, we should always fail as gracefully as possible.
  * We'd want to ask product design what the desired outcome is here.

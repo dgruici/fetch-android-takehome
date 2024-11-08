@@ -25,7 +25,7 @@ class ItemViewModel(
     }
 
     /**
-     * I'm sure we'll talk about this later, but let me get the jump on it now so we have a faster
+     * I'm sure we'll talk about this, but let me get the jump on it now so we have a faster
      * conversation later.
      *
      * I can't rely on the id from the API call. I know that in this case the id appears to match
@@ -56,5 +56,4 @@ class ItemViewModel(
             itemViewMap = sortedMap
         }
     }
-
 }
